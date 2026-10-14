@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.1.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'jacoco'
+    id 'org.sonarqube' version '5.1.0.4882'
+}
+
+group = 'ma.ensias'
+version = '0.0.1-SNAPSHOT'
+description = 'employe'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.modelmapper:modelmapper:3.2.0'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", ""
+        property "sonar.organization", ""
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.java.binaries", "build/classes"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
+    }
+}
