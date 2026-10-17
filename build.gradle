@@ -50,8 +50,8 @@ jacocoTestReport {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", ""
-        property "sonar.organization", ""
+        property "sonar.projectKey", "RimeEL_employe"
+        property "sonar.organization", "rime"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.java.binaries", "build/classes"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
